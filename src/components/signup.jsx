@@ -3,7 +3,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { data } from "autoprefixer";
-import axios from "axios";
+import axios from 'axios'
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as router, Link } from "react-router-dom";
+
+
 
 export default function Signup() {
   const [datas, setData] = useState([data]);
@@ -23,20 +28,30 @@ export default function Signup() {
 
       .then((res) => {
         console.log(res);
+        
+        toast.success(res.data.message)
+
+       
+      })
+      .catch((error) => {
+
+        console.log(error);
+        toast.error(error.response.data.message);
       });
   };
 
   return (
     <div className="parent mx-20 mt-5 flex justify-center items-center h-screen">
       <div className="main bg-white  h-auto shadow-2xl">
+        <ToastContainer />
         <h1 className="text-3xl font-bold text-center mt-10">Sign-up</h1>
 
-        <div className="mx-12 mt-5  h-auto">
+        <div className="mx-12 mt-5   h-auto">
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               {...register("name", { required: "Name is required" })}
               type="text"
-              className="  rounded-lg mt-5"
+              className="  rounded-lg mt-5 p-2 border"
               placeholder="Name"
               onChange={(e) => setData(e.target.value)}
             />
@@ -53,7 +68,7 @@ export default function Signup() {
                 },
               })}
               type="text"
-              className="  rounded-lg mt-5"
+              className="  rounded-lg mt-5 p-2 border"
               placeholder="Email"
               onChange={(e) => setData(e.target.value)}
             />
@@ -70,7 +85,7 @@ export default function Signup() {
                 },
               })}
               type="password"
-              className="  rounded-lg mt-5"
+              className="  rounded-lg mt-5 border p-2"
               placeholder="Password"
               onChange={(e) => setData(e.target.value)}
             />
@@ -85,6 +100,8 @@ export default function Signup() {
               Submit
             </button>
           </form>
+          <Link to="/login">login</Link>
+
         </div>
       </div>
     </div>
