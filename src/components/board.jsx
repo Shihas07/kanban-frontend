@@ -9,6 +9,7 @@ import Edit from "./edit";
 export default function Board({ status }) {
   const data = useSelector((state) => state.tasks.value);
   const filteredTasks = data.filter((task) => task.status === status);
+  console.log("filterdtask",filteredTasks)
   const dispatch = useDispatch();
   
   const [editingTask, setEditingTask] = useState(null);
@@ -45,7 +46,7 @@ export default function Board({ status }) {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className="p-3 bg-slate-100 flex justify-between items-center rounded shadow"
+                    className="p-3 bg-yellow-300 flex justify-between items-center rounded shadow-2xl"
                   >
                     <div>
                       <h1>{task.title}</h1>

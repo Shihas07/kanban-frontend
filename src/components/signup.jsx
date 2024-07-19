@@ -7,12 +7,13 @@ import axios from 'axios'
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as router, Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Signup() {
   const [datas, setData] = useState([data]);
-
+  const navigate=useNavigate()
   console.log(datas);
   const {
     register,
@@ -30,6 +31,8 @@ export default function Signup() {
         console.log(res);
         
         toast.success(res.data.message)
+        navigate("/")
+
 
        
       })

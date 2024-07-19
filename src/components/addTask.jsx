@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, updateTaskStatus } from "../redux/slice";
+import { useNavigate } from "react-router-dom";
 import Board from "./board";
 import { DragDropContext } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from "uuid";
-
+import axios from "axios";
 export default function AddTask() {
   const {
     register,
@@ -21,7 +22,19 @@ export default function AddTask() {
   const head = ["pending", "progress", "completed"];
   const tasks = useSelector((state) => state.tasks.value);
 
+  const navigate=useNavigate()
+
   const onSubmit = (data) => {
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.log("Token not found, redirecting to login.");
+      navigate('/login');
+      return;d
+    }
+
+      
     const taskWithId = {...data, id: uuidv4(), status: "pending" };
     // setData([...datas, taskWithId]);
     // console.log("shihas",datas)
@@ -34,7 +47,7 @@ export default function AddTask() {
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
-    console.log("abdul",destination);
+    console.log("abdul",draggableId);
 
     if (!destination) return;
 
